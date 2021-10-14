@@ -1,9 +1,12 @@
 import { SwaggerRouter } from "koa-swagger-decorator";
-import { main } from "./controller";
+import { audio, main } from "./controller";
 
 let router = new SwaggerRouter();
 
 router.get('/', main.helloWorld)
+router.get('/status', main.checkStatus)
+
+
 
 router.swagger({
     title: "Stream server",
