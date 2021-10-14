@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Audio {
+  id           Int            @id @default(autoincrement())
+  path         String
+  Playlist     Playlist[]
+  AudioGrouped AudioGrouped[]
+}
+
+model Playlist {
+  id           Int            @id @default(autoincrement())
+  path         String
+  audios       Audio          @relation(fields: [audioId], references: [id])
+  AudioGrouped AudioGrouped[]
+  audioId      Int
+}
+
+model AudioGrouped {
+  id         Int      @id @default(autoincrement())
+  audioId    Int
+  playlistId Int
+  audio      Audio    @relation(fields: [audioId], references: [id])
+  playlist   Playlist @relation(fields: [playlistId], references: [id])
+}
