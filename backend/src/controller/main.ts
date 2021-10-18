@@ -1,7 +1,9 @@
 import { checkFFMPEG } from '../services/audio.service';
 import { Controller, Get } from 'routing-controllers';
+import { Service } from 'typedi';
 
 @Controller()
+@Service()
 export class MainController {
 
     @Get('/')
