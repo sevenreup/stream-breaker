@@ -9,7 +9,8 @@
     "serve": "node dist/server.js",
     "build": "npm run lint && npm run build-ts && npm run copy-static-assets",
     "start": "npm run serve",
-    "db:migrate": "yarn prisma migrate dev"
+    "migrate": "prisma migrate dev",
+    "gen": "prisma generate"
   },
   "author": "",
   "license": "ISC",

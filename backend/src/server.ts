@@ -5,6 +5,7 @@ import { router } from "./routes";
 import serve from 'koa-static';
 import path from 'path';
 import multer from 'koa-multer';
+import AudioController from "./controller/audio";
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -27,7 +28,12 @@ app.use(serve(path.join(__dirname, '/public')));
 app.use(router.routes())
 router.post('/upload/audio', upload.single('audio'), async (ctx, next) => {
     const { originalname, path, mimetype } = (ctx.req as any).file;
-    ctx.body = path
+    try {
+        ctx.body = await AudioController.saveAudioJob(path, (ctx.req as any).body)
+    } catch (error) {
+        ctx.status = 500
+        ctx.app.emit('error', error)
+    }
 });
 
 app.listen(PORT, () => {

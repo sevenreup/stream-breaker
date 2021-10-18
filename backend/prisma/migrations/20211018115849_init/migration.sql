@@ -1,12 +1,14 @@
 -- CreateTable
 CREATE TABLE "Audio" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "ref" TEXT NOT NULL,
     "path" TEXT NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "Playlist" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "ref" TEXT NOT NULL,
     "path" TEXT NOT NULL,
     "audioId" INTEGER NOT NULL,
     CONSTRAINT "Playlist_audioId_fkey" FOREIGN KEY ("audioId") REFERENCES "Audio" ("id") ON DELETE RESTRICT ON UPDATE CASCADE

@@ -12,6 +12,7 @@ generator client {
 
 model Audio {
   id           Int            @id @default(autoincrement())
+  ref         String
   path         String
   Playlist     Playlist[]
   AudioGrouped AudioGrouped[]
@@ -19,6 +20,7 @@ model Audio {
 
 model Playlist {
   id           Int            @id @default(autoincrement())
+  ref         String
   path         String
   audios       Audio          @relation(fields: [audioId], references: [id])
   AudioGrouped AudioGrouped[]
