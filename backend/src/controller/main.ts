@@ -1,28 +1,23 @@
-import { BaseContext } from "koa";
-import { request, summary, path, body, responsesAll, tagsAll, description } from "koa-swagger-decorator";
 import { checkFFMPEG } from '../services/audio.service';
+import { Controller, Get } from 'routing-controllers';
 
-@tagsAll(["Main"])
-export default class MainController {
+@Controller()
+export class MainController {
 
-    @request("get", "/")
-    @summary("Welcome page")
-    @description("A simple welcome message to verify the service is up and running.")
-    public static async helloWorld(context: BaseContext): Promise<void> {
-        context.body = "Hello World!";
+    @Get('/')
+    helloWorld() {
+        return "Hello World!";
     }
 
-    @request("get", "/status")
-    @summary("Welcome page")
-    @description("A simple welcome message to verify the service is up and running.")
-    public static async checkStatus(context: BaseContext): Promise<void> {
+    @Get("/status")
+    async checkStatus() {
         try {
             const status = await checkFFMPEG();
-            context.body = {
+            return {
                 ffmpeg: status,
             };
         } catch (error) {
-            context.body = {
+            return {
                 ffmpeg: false,
             };
         }
